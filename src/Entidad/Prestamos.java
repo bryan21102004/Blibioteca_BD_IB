@@ -1,17 +1,22 @@
 package Entidad;
+
+import java.sql.Date;
+
 public class Prestamos {
     private int idPrestamo;
     private int idEstudiante;
     private int idEjemplar;
     private String fechaPrestamo;
-    private String fechaDevolucion;
+    private  java.sql.Date fechaDevolucion;
     private String estado;
     //Constructor que recibe todos sus atributos como parametro
-    public Prestamos(int idPrestamo, int idEstudiante, int idEjemplar, String fechaPrestamo,String estado) {
+    public Prestamos(int idPrestamo, int idEstudiante, int idEjemplar, 
+            String fechaPrestamo,java.sql.Date fechaDevolucion,String estado) {
         this.idPrestamo = idPrestamo;
         this.idEstudiante = idEstudiante;
         this.idEjemplar = idEjemplar;
         this.fechaPrestamo = fechaPrestamo;
+        this.fechaDevolucion= fechaDevolucion;
         this.estado=estado;
     }
     //Constructor vacio
@@ -52,13 +57,23 @@ public class Prestamos {
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public String getFechaDevolucion() {
+    public Date getFechaDevolucion() {
         return fechaDevolucion;
     }
 
-    public void setFechaDevolucion(String fechaDevolucion) {
+    public void setFechaDevolucion(Date fechaDevolucion) {
         this.fechaDevolucion = fechaDevolucion;
     }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+  
     @Override
     public String toString(){
       return idPrestamo+" "+idEstudiante+" "+idEjemplar+" "

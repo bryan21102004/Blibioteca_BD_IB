@@ -1,5 +1,5 @@
 
-package Presentacion;
+package Conexion_BD;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
