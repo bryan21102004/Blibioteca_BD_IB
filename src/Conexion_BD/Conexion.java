@@ -44,10 +44,6 @@ public class Conexion {
            System.out.println("No se pudo desconectar");
        }
    }
-   
-   public static void main(String[]args){
-       Conexion cx = new Conexion();
-       cx.conectar();
-   }
+
    
 }

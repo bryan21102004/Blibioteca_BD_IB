@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CRUD {
 
@@ -14,8 +17,9 @@ public class CRUD {
 
     public CRUD(Connection conexion) {
         this.conexion = conexion;
+        
     }
-
+   
     //Metodo para insertar un prestamo de un libro
     public boolean insertarPrestamo(Prestamos prestamos) {
         //Query de sql para insertar el prestamo
@@ -62,5 +66,101 @@ public class CRUD {
             e.printStackTrace();
             return false;
         }
+    }
+    
+    public void eliminarEstudiante(int idEstudiante){
+        String sql = "{CALL EliminarEstudiante(?)}";
+        CallableStatement stm=null;
+        try {
+            stm = conexion.prepareCall(sql);
+            //Parametros
+            stm.setInt(1, idEstudiante);//Indica la posicion y el parametro de nuestro procedimiento
+            stm.execute();//ejecutar
+        } catch (SQLException ex) {
+            System.out.println("Hubo un fallo al eliminar el estudiante: "+ex);
+        }finally{
+            try {
+              if(stm != null) stm.close();
+              if (conexion != null) conexion.close(); 
+            } catch (SQLException ex) {
+                System.out.println("Ocurrió un error al cerrar las conexiones: "+ex);
+            }
+        }
+
+    }
+    
+    public String[] consultarLibroPorNombre(String nombre){
+        String sql="{CALL ConsultarLibros(?,?,?,?,?)}";
+        CallableStatement stm=null;    
+        ResultSet resultado=null;
+        String salida="";
+        try {
+            stm=conexion.prepareCall(sql);
+            //Parametros
+            stm.setNull(1, java.sql.Types.INTEGER);
+            stm.setString(2, nombre);
+            stm.setNull(3, java.sql.Types.VARCHAR);
+            stm.setNull(4, java.sql.Types.VARCHAR);
+            stm.setNull(5, java.sql.Types.DATE);
+            
+            resultado=stm.executeQuery();
+            while(resultado.next()){
+                int idLibro=resultado.getInt("ID_Libro");
+                String nombreLibro=resultado.getString("Nombre_Libro");
+                String isbn=resultado.getString("ISBN");
+                int cantidadPaginas=resultado.getInt("Cantidad_Paginas");
+                String editorial=resultado.getString("Editorial");
+                java.sql.Date fechaPublicacion=resultado.getDate("Fecha_Publicacion");
+                salida+=idLibro+","+nombreLibro+","+isbn+","+cantidadPaginas
+                +","+editorial+","+fechaPublicacion;
+            }
+        } catch (SQLException ex) {
+            System.out.println("No se pudo consultar el libro: "+ex);
+        }finally{
+            try{
+                if(stm != null) stm.close();
+                if (conexion != null) conexion.close(); 
+            }catch(SQLException ex){
+                System.out.println("No se pudo cerrar las conexiones "+ex);
+            }
+        }
+       return salida.split(",");
+    }
+    public String[] consultarLibroPorID(int idLibro){
+        String sql="{CALL ConsultarLibros(?,?,?,?,?)}";
+        CallableStatement stm=null;    
+        ResultSet resultado=null;
+        String salida="";
+        try {
+            stm=conexion.prepareCall(sql);
+            //Parametros
+            stm.setInt(1,idLibro);
+            stm.setNull(2, java.sql.Types.VARCHAR);
+            stm.setNull(3, java.sql.Types.VARCHAR);
+            stm.setNull(4, java.sql.Types.VARCHAR);
+            stm.setNull(5, java.sql.Types.DATE);
+            
+            resultado=stm.executeQuery();
+            while(resultado.next()){
+                int idLibroE=resultado.getInt("ID_Libro");
+                String nombreLibro=resultado.getString("Nombre_Libro");
+                String isbn=resultado.getString("ISBN");
+                int cantidadPaginas=resultado.getInt("Cantidad_Paginas");
+                String editorial=resultado.getString("Editorial");
+                java.sql.Date fechaPublicacion=resultado.getDate("Fecha_Publicacion");
+                salida+=idLibroE+","+nombreLibro+","+isbn+","+cantidadPaginas
+                +","+editorial+","+fechaPublicacion;
+            }
+        } catch (SQLException ex) {
+            System.out.println("No se pudo consultar el libro: "+ex);
+        }finally{
+            try{
+                if(stm != null) stm.close();
+                if (conexion != null) conexion.close(); 
+            }catch(SQLException ex){
+                System.out.println("No se pudo cerrar las conexiones "+ex);
+            }
+        }
+       return salida.split(",");
     }
 }

@@ -15,21 +15,26 @@ public class Main {
         Connection conexion = conexionBD.conectar();
 
         //Instancia de la clase prestamo
-        //Prestamos prestamos = new Prestamos();
-        //prestamos.setIdEstudiante(27);
-        //prestamos.setIdEjemplar(13);
+//        Prestamos prestamos = new Prestamos();
+//        prestamos.setIdEstudiante(27);
+//        prestamos.setIdEjemplar(13);
         //Instancia clase Autor
-        Autor autor = new Autor();
-        autor.setIdAutor(1);
-        autor.setNombreAutor("Bryan Martínez");
+//        Autor autor = new Autor();
+//        autor.setIdAutor(1);
+//        autor.setNombreAutor("Bryan Martínez");
 
         CRUD crud = new CRUD(conexion);
-        //boolean insertar = crud.insertarPrestamo(prestamos);
-        boolean actualizar = crud.actualizarAutores(autor);
-        if (actualizar) {
-            System.out.println("Prestamo insertado");
-        } else {
-            System.out.println("Error");
+        String cv[]=crud.consultarLibroPorID(8);
+        for (int i = 0; i < cv.length; i++) {
+            System.out.print(cv[i]+" ");
         }
+        //crud.eliminarEstudiante(7);
+        //boolean insertar = crud.insertarPrestamo(prestamos);
+//        boolean actualizar = crud.actualizarAutores(autor);
+//        if (actualizar) {
+//            System.out.println("Prestamo insertado");
+//        } else {
+//            System.out.println("Error");
+//        }
     }
 }
