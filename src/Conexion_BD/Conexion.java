@@ -1,5 +1,5 @@
 
-package Presentacion;
+package Conexion_BD;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,10 +44,6 @@ public class Conexion {
            System.out.println("No se pudo desconectar");
        }
    }
-   
-   public static void main(String[]args){
-       Conexion cx = new Conexion();
-       cx.conectar();
-   }
+
    
 }
