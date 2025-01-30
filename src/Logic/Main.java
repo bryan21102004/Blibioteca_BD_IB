@@ -23,11 +23,11 @@ public class Main {
 //        autor.setIdAutor(1);
 //        autor.setNombreAutor("Bryan Martínez");
 
-        CRUD crud = new CRUD(conexion);
+      /*  CRUD crud = new CRUD(conexion);
         String cv[]=crud.consultarLibroPorID(8);
         for (int i = 0; i < cv.length; i++) {
             System.out.print(cv[i]+" ");
-        }
+        }*/
         //crud.eliminarEstudiante(7);
         //boolean insertar = crud.insertarPrestamo(prestamos);
 //        boolean actualizar = crud.actualizarAutores(autor);

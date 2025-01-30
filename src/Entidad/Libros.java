@@ -6,10 +6,11 @@ public class Libros {
   private String isbn;
   private int cantidadPaginas;
   private String editorial;
-  private String fechaPublicacion;
+  private java.sql.Date fechaPublicacion;
   
   //Constructor con todos sus atributos como parametro
-    public Libros(int idLibro, String nombreLibro, String isbn, int cantidadPaginas, String editorial, String fechaPublicacion) {
+    public Libros(int idLibro, String nombreLibro, String isbn, int cantidadPaginas,
+            String editorial, java.sql.Date fechaPublicacion) {
         this.idLibro = idLibro;
         this.nombreLibro = nombreLibro;
         this.isbn = isbn;
@@ -63,11 +64,11 @@ public class Libros {
         this.editorial = editorial;
     }
 
-    public String getFechaPublicacion() {
+    public java.sql.Date getFechaPublicacion() {
         return fechaPublicacion;
     }
 
-    public void setFechaPublicacion(String fechaPublicacion) {
+    public void setFechaPublicacion(java.sql.Date fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
     @Override

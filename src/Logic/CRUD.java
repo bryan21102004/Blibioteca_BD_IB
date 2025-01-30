@@ -1,12 +1,16 @@
 package Logic;
 
+import Conexion_BD.Conexion;
 import Entidad.Autor;
+import Entidad.Estudiante;
+import Entidad.Libros;
 import Entidad.Prestamos;
 import java.sql.PreparedStatement;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -89,11 +93,11 @@ public class CRUD {
 
     }
     
-    public String[] consultarLibroPorNombre(String nombre){
+    public Libros consultarLibroPorNombre(String nombre){
         String sql="{CALL ConsultarLibros(?,?,?,?,?)}";
         CallableStatement stm=null;    
         ResultSet resultado=null;
-        String salida="";
+        Libros libro=null;
         try {
             stm=conexion.prepareCall(sql);
             //Parametros
@@ -111,26 +115,19 @@ public class CRUD {
                 int cantidadPaginas=resultado.getInt("Cantidad_Paginas");
                 String editorial=resultado.getString("Editorial");
                 java.sql.Date fechaPublicacion=resultado.getDate("Fecha_Publicacion");
-                salida+=idLibro+","+nombreLibro+","+isbn+","+cantidadPaginas
-                +","+editorial+","+fechaPublicacion;
+                libro= new Libros(idLibro, nombreLibro, isbn, cantidadPaginas,
+                        editorial, fechaPublicacion);
             }
         } catch (SQLException ex) {
             System.out.println("No se pudo consultar el libro: "+ex);
-        }finally{
-            try{
-                if(stm != null) stm.close();
-                if (conexion != null) conexion.close(); 
-            }catch(SQLException ex){
-                System.out.println("No se pudo cerrar las conexiones "+ex);
-            }
         }
-       return salida.split(",");
+       return libro;
     }
-    public String[] consultarLibroPorID(int idLibro){
+    public Libros consultarLibroPorID(int idLibro){
         String sql="{CALL ConsultarLibros(?,?,?,?,?)}";
         CallableStatement stm=null;    
         ResultSet resultado=null;
-        String salida="";
+        Libros libro=null;
         try {
             stm=conexion.prepareCall(sql);
             //Parametros
@@ -148,19 +145,83 @@ public class CRUD {
                 int cantidadPaginas=resultado.getInt("Cantidad_Paginas");
                 String editorial=resultado.getString("Editorial");
                 java.sql.Date fechaPublicacion=resultado.getDate("Fecha_Publicacion");
-                salida+=idLibroE+","+nombreLibro+","+isbn+","+cantidadPaginas
-                +","+editorial+","+fechaPublicacion;
+                libro = new Libros(idLibro, nombreLibro, isbn, cantidadPaginas,
+                        editorial, fechaPublicacion);
             }
         } catch (SQLException ex) {
             System.out.println("No se pudo consultar el libro: "+ex);
-        }finally{
-            try{
-                if(stm != null) stm.close();
-                if (conexion != null) conexion.close(); 
-            }catch(SQLException ex){
-                System.out.println("No se pudo cerrar las conexiones "+ex);
-            }
         }
-       return salida.split(",");
+       return libro;
     }
+    
+    public ArrayList<Libros> consultarLibros(){
+        ArrayList<Libros>listaLibros=new ArrayList();
+        String sql="{CALL ConsultaDeLibros()}";
+        CallableStatement stm=null;
+        try {
+            stm=conexion.prepareCall(sql);
+            ResultSet resultado=stm.executeQuery();
+            while (resultado.next()) {  
+                int idLibroE=resultado.getInt("ID_Libro");
+                String nombreLibro=resultado.getString("Nombre_Libro");
+                String isbn=resultado.getString("ISBN");
+                int cantidadPaginas=resultado.getInt("Cantidad_Paginas");
+                String editorial=resultado.getString("Editorial");
+                java.sql.Date fechaPublicacion=resultado.getDate("Fecha_Publicacion");
+                Libros libro = new Libros(idLibroE, nombreLibro, isbn, cantidadPaginas,
+                        editorial, fechaPublicacion);
+                listaLibros.add(libro);
+            }
+        } catch (SQLException ex) {
+            System.out.println("No se pudo hacer la consulta de los libros: "+ex);
+        }
+        return listaLibros;
+    }
+    
+
+    public ArrayList<Autor> consultarAutores(){
+    ArrayList<Autor>listaAutores=new ArrayList();
+        String sql="{CALL ConsultaDeAutores()}";
+        CallableStatement stm=null;
+        try {
+            stm=conexion.prepareCall(sql);
+            ResultSet resultado=stm.executeQuery();
+            while (resultado.next()) {  
+                int idAutor = resultado.getInt("ID_Autor");
+                String nombreAutor = resultado.getString("Nombre_Autor");
+                Autor autor = new Autor(idAutor, nombreAutor);
+                listaAutores.add(autor);
+            }
+        } catch (SQLException ex) {
+            System.out.println("No se pudo hacer la consulta de los libros: "+ex);
+        }
+        return listaAutores;
+    }
+    
+    public ArrayList<Estudiante> consultarEstudiantes(){
+        ArrayList<Estudiante>listaEstudiantes=new ArrayList();
+        String sql="{CALL ConsultaDeEstudiantes()}";
+        CallableStatement stm=null;
+        try {
+            stm=conexion.prepareCall(sql);
+            ResultSet resultado=stm.executeQuery();
+            while (resultado.next()) {  
+                int idEstudiante = resultado.getInt("ID_Estudiante");
+                String nombreEstudiante = resultado.getString("Nombre_Estudiante");
+                String apellidosEstudiane=resultado.getString("Apellidos_Estudiante");
+                String telefonoEstudiante=resultado.getString("Telefono");
+                String direccion=resultado.getString("Direccion");
+                String carrera=resultado.getString("Carrera");
+                int idLocalizacion=resultado.getInt("ID_Localizacion");
+                
+                Estudiante estudiante= new Estudiante(idEstudiante, nombreEstudiante,
+                        apellidosEstudiane, direccion, direccion, carrera, idLocalizacion);
+                listaEstudiantes.add(estudiante);
+            }
+        } catch (SQLException ex) {
+            System.out.println("No se pudo hacer la consulta de los libros: "+ex);
+        }
+        return listaEstudiantes;
+    }
+    
 }

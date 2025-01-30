@@ -30,6 +30,7 @@ public class Inicio extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnPrestamos = new javax.swing.JButton();
+        btnLibros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,12 +99,24 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        btnLibros.setBackground(new java.awt.Color(0, 0, 255));
+        btnLibros.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnLibros.setForeground(new java.awt.Color(255, 255, 255));
+        btnLibros.setText("Libros");
+        btnLibros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLibrosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(btnPrestamos)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnPrestamos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLibros, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -111,6 +124,8 @@ public class Inicio extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnPrestamos)
+                .addGap(18, 18, 18)
+                .addComponent(btnLibros)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -136,6 +151,18 @@ public class Inicio extends javax.swing.JFrame {
         mostrarPanelLibros();
     }//GEN-LAST:event_btnPrestamosActionPerformed
 
+    private void btnLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLibrosActionPerformed
+       cargarLibros();
+       
+    }//GEN-LAST:event_btnLibrosActionPerformed
+    private void cargarLibros(){
+       PanelLibros panelLibros= new PanelLibros();
+       pContenedor.removeAll();
+       panelLibros.setSize(800, 500);
+       pContenedor.add(panelLibros);
+       revalidate();
+       repaint();
+    }
    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -170,6 +197,7 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLibros;
     private javax.swing.JButton btnPrestamos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -177,6 +205,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel pContenedor;
+    public static javax.swing.JPanel pContenedor;
     // End of variables declaration//GEN-END:variables
 }

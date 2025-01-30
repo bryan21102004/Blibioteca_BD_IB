@@ -23,7 +23,7 @@ public class JPInsertarPrestamos extends javax.swing.JPanel {
 
         model = new DefaultTableModel(null, nombreColumnas) {
             @Override
-            //Este pequeño metodo evita que la tabla ea editable
+            //Este pequeño metodo evita que la tabla sea editable
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
