@@ -153,9 +153,8 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnLibrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLibrosActionPerformed
        cargarLibros();
-       
     }//GEN-LAST:event_btnLibrosActionPerformed
-    private void cargarLibros(){
+    private void cargarLibros(){ // carga el panel libros
        PanelLibros panelLibros= new PanelLibros();
        pContenedor.removeAll();
        panelLibros.setSize(800, 500);

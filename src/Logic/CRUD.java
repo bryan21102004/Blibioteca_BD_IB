@@ -178,7 +178,54 @@ public class CRUD {
         return listaLibros;
     }
     
-
+    public void eliminarLibro(int idLibro){
+        String sql="{CALL EliminarLibro(?)}";
+        CallableStatement stm = null;
+        try {
+            stm=conexion.prepareCall(sql);
+            //Parametro
+            stm.setInt(1,idLibro);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar: "+e);
+        }
+    }
+    
+    public void insertarLibro(String nombreLibro, String isbn, String fechaPublicacion,
+            String editorial, int cantidadPaginas){
+        String sql = "{CALL InsertarLibro(?,?,?,?,?)}";
+        CallableStatement stm =null;
+        try {
+            stm=conexion.prepareCall(sql);
+            //Parametros
+            stm.setString(1, nombreLibro);
+            stm.setString(2, isbn);
+            stm.setString(4, editorial);
+            stm.setString(5, fechaPublicacion);
+            stm.setInt(3,cantidadPaginas);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("No se pudo insertar: "+e);
+        }
+    }
+    
+    public void actualizarLibro(int idLibro, String nombreLibro,
+            String isbn,int cantidadPaginas,String editorial){
+        String sql = "{CALL ActualizarLibro(?,?,?,?,?)}";
+        CallableStatement stm =null;
+        try {
+            stm=conexion.prepareCall(sql);
+            //Parametros
+            stm.setInt(1, idLibro);
+            stm.setString(2, nombreLibro);
+            stm.setString(3, isbn);
+            stm.setInt(4,cantidadPaginas);
+            stm.setString(5, editorial);
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("No se pudo insertar: "+e);
+        }
+    }
     public ArrayList<Autor> consultarAutores(){
     ArrayList<Autor>listaAutores=new ArrayList();
         String sql="{CALL ConsultaDeAutores()}";
@@ -224,4 +271,22 @@ public class CRUD {
         return listaEstudiantes;
     }
     
+    public int verificarPrestamo(int idLibro){
+        String sql="{CALL librosEnPrestamo(?)}";
+        CallableStatement stm=null;
+        ResultSet resultado=null;
+        int libroEnPrestamo=0;
+        try {
+            stm=conexion.prepareCall(sql);
+            stm.setInt(1, idLibro);
+            resultado=stm.executeQuery();
+            while (resultado.next()) {                
+                libroEnPrestamo=resultado.getInt("LibrosEnPrestamo");
+            }
+        } catch (SQLException e) {
+            System.out.println("No se pudo verificar el prestamo: "+e);
+        }
+        return libroEnPrestamo;
+    }
+   
 }

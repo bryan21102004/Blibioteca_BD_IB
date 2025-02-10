@@ -73,8 +73,9 @@ public class Libros {
     }
     @Override
     public String toString(){
-        return idLibro+" "+nombreLibro+" "+isbn+" "+cantidadPaginas+" "
-                +editorial+" "+fechaPublicacion;
+        return "ID Libro: "+idLibro+",Titulo: "+nombreLibro+",ISBN: "+isbn
+                +",Cantidad de páginas: "+cantidadPaginas+",Editorial: "
+                +editorial+",Fecha de publicación: "+fechaPublicacion;
     }
     
     

@@ -31,7 +31,7 @@ public class Autor {
     }
     @Override
     public String toString(){
-       return idAutor+" "+nombreAutor; 
+       return "ID Autor: "+idAutor+",Nombre del autor: "+nombreAutor; 
     }
     
     

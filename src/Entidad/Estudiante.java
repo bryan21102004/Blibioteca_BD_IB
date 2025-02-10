@@ -83,8 +83,9 @@ public class Estudiante {
     
     @Override 
     public String toString(){
-      return idEstudiante +" "+nombreEstudiante+" "+apellidosEstudiante+" "
-              +telefono+" "+direccion+" "+carrera+" "+idLocalizacion;
+      return "ID Estudiante: "+idEstudiante +",Nombre del estudiante: "+nombreEstudiante
+              +",Apellidos del estudiante: "+apellidosEstudiante+",Teléfono: "
+              +telefono+",Dirección: "+direccion+",Carrera: "+carrera+",Localizacion: "+idLocalizacion;
     }
     
     

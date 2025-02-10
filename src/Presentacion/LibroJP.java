@@ -4,7 +4,7 @@ package Presentacion;
 import Entidad.Libros;
 
 public class LibroJP extends javax.swing.JPanel {
-    Libros libro;
+    public Libros libro;
     public LibroJP(Libros libro) {
         this.libro = libro;
         initComponents();
